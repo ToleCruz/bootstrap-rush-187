@@ -1,0 +1,67 @@
+/* ===== Bootstrap Rush 187 · Estilos del juego ===== */
+:root { --neon: #ff4fa3; --cian: #22d3ee; --fondo: #0d0b1f; --panel: #17142e; --borde: #2c2756; }
+body { background: radial-gradient(circle at 20% 0%, #2a145a 0%, var(--fondo) 55%) fixed; color: #ece9ff; min-height: 100vh; font-family: "Segoe UI", system-ui, sans-serif; }
+.titulo-juego { font-family: "Press Start 2P", monospace; letter-spacing: 1px; }
+.barra-top { background: rgba(13,11,31,.85); backdrop-filter: blur(6px); border-bottom: 1px solid var(--borde); position: sticky; top: 0; z-index: 50; }
+.logo { font-family: "Press Start 2P", monospace; font-size: .95rem; background: linear-gradient(90deg, var(--neon), var(--cian)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.chip { background: var(--panel); border: 1px solid var(--borde); border-radius: 999px; padding: 4px 12px; font-weight: 700; white-space: nowrap; }
+.chip .num { color: #fde047; }
+.racha-on { border-color: #fb923c; box-shadow: 0 0 12px rgba(251,146,60,.6); animation: latido 1s infinite; }
+@keyframes latido { 50% { transform: scale(1.06); } }
+.panel { background: var(--panel); border: 1px solid var(--borde); border-radius: 18px; }
+.oculto { display: none !important; }
+
+/* Portada */
+.hero h1 { font-family: "Press Start 2P", monospace; font-size: clamp(1.3rem, 4vw, 2.4rem); line-height: 1.5; background: linear-gradient(90deg, var(--neon), #a78bfa, var(--cian)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.btn-neon { background: linear-gradient(90deg, var(--neon), #a855f7); color: #fff; border: 0; font-weight: 800; box-shadow: 0 0 18px rgba(255,79,163,.45); }
+.btn-neon:hover { color: #fff; filter: brightness(1.15); transform: translateY(-2px); }
+
+/* Mapa de mundos */
+.mundo { border-radius: 18px; padding: 18px; background: var(--panel); border: 2px solid var(--borde); cursor: pointer; transition: transform .15s, box-shadow .15s; position: relative; height: 100%; }
+.mundo:hover:not(.bloqueado) { transform: translateY(-4px); box-shadow: 0 8px 26px rgba(0,0,0,.4); }
+.mundo .ico { font-size: 2.4rem; }
+.mundo.bloqueado { opacity: .45; cursor: not-allowed; filter: grayscale(.7); }
+.estrellas { font-size: .95rem; letter-spacing: 2px; }
+.niv-btn { width: 44px; height: 44px; border-radius: 12px; border: 2px solid var(--borde); background: #221d45; color: #fff; font-weight: 800; }
+.niv-btn.hecho { background: #14532d; border-color: #22c55e; }
+.niv-btn.jefe { border-style: dashed; border-color: #f87171; }
+.niv-btn:disabled { opacity: .35; }
+
+/* Nivel */
+.mision { font-size: 1.05rem; }
+.codigo { background: #0a0918; border: 1px solid var(--borde); border-radius: 14px; padding: 14px; font: 14px/1.7 Consolas, "Courier New", monospace; color: #c4b5fd; white-space: pre-wrap; word-break: break-word; margin: 0; }
+.codigo .tag { color: #f472b6; } .codigo .attr { color: #7dd3fc; }
+.hueco { background: #1e1b4b; border: 2px solid var(--cian); color: #fde047; border-radius: 8px; padding: 1px 8px; font: inherit; min-width: 9ch; outline: none; box-shadow: 0 0 10px rgba(34,211,238,.35); }
+.hueco:focus { border-color: var(--neon); box-shadow: 0 0 14px rgba(255,79,163,.6); }
+.hueco.ok { border-color: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,.5); }
+.vista-titulo { font-weight: 800; font-size: .9rem; text-transform: uppercase; letter-spacing: 1px; }
+.vistas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 767.98px) { .vistas { grid-template-columns: 1fr; } }
+.prev { background: #fff; color: #212529; border-radius: 12px; padding: 12px; min-height: 120px; overflow: hidden; border: 3px solid transparent; }
+.prev.objetivo { border-color: #a78bfa; }
+.prev *, .prev { transition: none !important; animation: none !important; }
+.prev .caja { width: 56px; height: 56px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; margin: 2px; }
+.prev .caja:nth-child(1) { background: #ec4899; } .prev .caja:nth-child(2) { background: #8b5cf6; } .prev .caja:nth-child(3) { background: #06b6d4; }
+.prev .contenedor { background: #f1f0ff; border: 2px dashed #c4b5fd; border-radius: 10px; padding: 6px; min-height: 76px; }
+.prev .celda { background: #ede9fe; border: 2px solid #8b5cf6; border-radius: 8px; padding: 10px; text-align: center; font-weight: 700; }
+.prev a { cursor: default; }
+.medidor { height: 14px; background: #221d45; border-radius: 999px; overflow: hidden; }
+.medidor div { height: 100%; background: linear-gradient(90deg, #f43f5e, #fbbf24, #22c55e); transition: width .35s !important; }
+.tiempo { font-family: "Press Start 2P", monospace; font-size: .8rem; }
+
+/* Victoria */
+.capa { position: fixed; inset: 0; background: rgba(5,4,15,.82); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.tarjeta-victoria { max-width: 520px; width: 100%; animation: aparecer .4s ease-out; }
+@keyframes aparecer { from { transform: scale(.7); opacity: 0; } }
+.puntos-grandes { font-family: "Press Start 2P", monospace; font-size: 2rem; color: #fde047; text-shadow: 0 0 18px rgba(253,224,71,.6); }
+#confeti { position: fixed; inset: 0; pointer-events: none; z-index: 250; }
+.insignia { text-align: center; padding: 10px; border-radius: 14px; background: #221d45; border: 1px solid var(--borde); height: 100%; }
+.insignia .ico { font-size: 2rem; }
+.insignia.no { opacity: .3; filter: grayscale(1); }
+.avatar-op { font-size: 1.8rem; width: 56px; height: 56px; border-radius: 14px; border: 2px solid var(--borde); background: #221d45; }
+.avatar-op.sel { border-color: var(--neon); box-shadow: 0 0 12px rgba(255,79,163,.6); }
+.avatar-op:disabled { opacity: .3; }
+.fila-rank.yo { background: rgba(255,79,163,.18); }
+.toast-insignia { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 300; background: #1e1b4b; border: 2px solid #fde047; border-radius: 16px; padding: 10px 18px; font-weight: 800; box-shadow: 0 0 24px rgba(253,224,71,.4); animation: aparecer .3s; }
+.sacudir { animation: sacudir .35s; }
+@keyframes sacudir { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
