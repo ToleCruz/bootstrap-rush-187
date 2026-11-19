@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Rush 187 · Actividad 26 · 3AV</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/juego.css">
+</head>
+<body>
+  <canvas id="confeti"></canvas>
+
+  <!-- Barra superior -->
+  <header class="barra-top">
+    <div class="container-xl d-flex align-items-center gap-2 py-2 flex-wrap">
+      <span class="logo me-auto" role="button" id="irMapa">⚡ BOOTSTRAP RUSH 187</span>
+      <span class="chip" id="chipAvatar" role="button" title="Cambiar avatar">🐣 <span id="nombreCorto">Invitado</span></span>
+      <span class="chip">⭐ <span class="num" id="puntosTop">0</span></span>
+      <span class="chip" id="chipRacha" title="Niveles seguidos sin pistas">🔥 x<span id="rachaTop">0</span></span>
+      <button class="btn btn-sm btn-outline-info rounded-pill" id="btnRanking">🏆 Ranking</button>
+      <button class="btn btn-sm btn-outline-warning rounded-pill" id="btnInsignias">🎖️ Insignias</button>
+      <button class="btn btn-sm btn-outline-secondary rounded-pill" id="btnSonido" title="Sonido">🔊</button>
+    </div>
+  </header>
+
+  <main class="container-xl py-4">
+    <!-- PORTADA -->
+    <section id="pantallaInicio" class="hero text-center py-4">
+      <div class="display-1 mb-2">⚡🎮</div>
+      <h1 class="mb-3">BOOTSTRAP<br>RUSH 187</h1>
+      <p class="lead mb-1">Copia el diseño objetivo escribiendo <b>clases de Bootstrap 5</b>. ¡Contra reloj!</p>
+      <p class="text-secondary mb-4">Actividad 26 · 3AV Programación · Submódulo 1: Emplea frameworks para el desarrollo de software · CBTis No. 187</p>
+      <div class="d-flex flex-column align-items-center gap-3">
+        <div id="botonGoogle"></div>
+        <div id="estadoLogin" class="small text-secondary">Inicia sesión con tu correo <b>@cbtis187.edu.mx</b> para entrar al ranking.</div>
+        <button class="btn btn-link text-secondary" id="btnInvitado">Jugar sin cuenta (no cuenta para el ranking)</button>
+      </div>
+      <div class="row g-3 justify-content-center mt-4 text-start">
+        <div class="col-md-4"><div class="panel p-3 h-100"><div class="fs-3">🎯</div><b>Copia el objetivo</b><div class="small text-secondary">Escribe las clases en los huecos y mira tu diseño cambiar al instante.</div></div></div>
+        <div class="col-md-4"><div class="panel p-3 h-100"><div class="fs-3">⏱️</div><b>Rápido = más puntos</b><div class="small text-secondary">Bono por tiempo y multiplicador por racha sin pistas.</div></div></div>
+        <div class="col-md-4"><div class="panel p-3 h-100"><div class="fs-3">🏆</div><b>Compite con 3AV</b><div class="small text-secondary">Gana insignias, desbloquea avatares y sube en el ranking del grupo.</div></div></div>
+      </div>
+    </section>
+
+    <!-- MAPA DE MUNDOS -->
+    <section id="pantallaMapa" class="oculto">
+      <div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-3">
+        <div>
+          <h2 class="titulo-juego fs-5 mb-1">Mapa de mundos</h2>
+          <div class="text-secondary">Termina un mundo para desbloquear el siguiente. Los niveles con borde rojo son <b>jefes</b>.</div>
+        </div>
+        <div class="text-end"><div class="small text-secondary">Progreso</div><b id="progresoTxt">0 / 26 niveles</b></div>
+      </div>
+      <div class="row g-3" id="mundos"></div>
+    </section>
+
+    <!-- NIVEL -->
+    <section id="pantallaNivel" class="oculto">
+      <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+        <button class="btn btn-sm btn-outline-light rounded-pill" id="btnVolver">← Mapa</button>
+        <span class="badge rounded-pill" id="nivEtiqueta">Mundo 1 · Nivel 1</span>
+        <h2 class="h4 mb-0 me-auto" id="nivTitulo">Título</h2>
+        <span class="chip tiempo">⏱️ <span id="reloj">0</span>s</span>
+      </div>
+      <div class="row g-3">
+        <div class="col-lg-5">
+          <div class="panel p-3 h-100 d-flex flex-column">
+            <div class="mision mb-3">🎯 <span id="nivMision"></span></div>
+            <pre class="codigo mb-3" id="codigo"></pre>
+            <div class="small text-secondary mb-2">💡 Escribe las clases separadas por espacios. Tu diseño se compara solo, en tiempo real.</div>
+            <div id="pistaCaja" class="alert alert-info py-2 small oculto"></div>
+            <div class="mt-auto d-flex flex-wrap gap-2">
+              <button class="btn btn-outline-info btn-sm" id="btnPista">💡 Pista (−40)</button>
+              <button class="btn btn-outline-secondary btn-sm" id="btnLimpiar">↺ Limpiar</button>
+              <button class="btn btn-outline-danger btn-sm ms-auto" id="btnRendirse">🏳️ Ver solución</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="panel p-3 h-100">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="vista-titulo">Parecido</span>
+              <div class="medidor flex-grow-1"><div id="medidor" style="width:0%"></div></div>
+              <b id="porcentaje">0%</b>
+            </div>
+            <div class="vistas">
+              <div><div class="vista-titulo text-info mb-1">🎯 Objetivo</div><div class="prev objetivo" id="vistaObjetivo" data-bs-theme="light"></div></div>
+              <div><div class="vista-titulo text-warning mb-1">👀 Tu diseño</div><div class="prev" id="vistaAlumno" data-bs-theme="light"></div></div>
+            </div>
+            <div class="small text-secondary mt-2" id="avisoResp"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Capa de victoria -->
+  <div class="capa oculto" id="capaVictoria">
+    <div class="panel p-4 tarjeta-victoria text-center">
+      <div class="display-4" id="vicIcono">🎉</div>
+      <h3 class="titulo-juego fs-6 my-3" id="vicTitulo">¡NIVEL SUPERADO!</h3>
+      <div class="puntos-grandes mb-2">+<span id="vicPuntos">0</span></div>
+      <div class="small text-secondary mb-3" id="vicDesglose"></div>
+      <div class="alert alert-success text-start small" id="vicAprende"></div>
+      <div class="d-flex gap-2 justify-content-center">
+        <button class="btn btn-outline-light" id="vicMapa">🗺️ Mapa</button>
+        <button class="btn btn-neon px-4" id="vicSiguiente">Siguiente ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tutorial -->
+  <div class="capa oculto" id="capaTutorial">
+    <div class="panel p-4 tarjeta-victoria">
+      <h3 class="titulo-juego fs-6 mb-3 text-center">¿CÓMO SE JUEGA?</h3>
+      <ol class="mb-3">
+        <li class="mb-2">A la derecha está el <b class="text-info">diseño objetivo</b>.</li>
+        <li class="mb-2">En el código hay <b class="text-warning">huecos brillantes</b>: escribe ahí las clases de Bootstrap.</li>
+        <li class="mb-2">Tu diseño cambia mientras escribes. Cuando llegue al <b>100 %</b>, ¡ganas!</li>
+        <li class="mb-2">Más rápido = más puntos. Sin pistas, tu <b>racha 🔥</b> multiplica los puntos.</li>
+      </ol>
+      <div class="text-center"><button class="btn btn-neon px-4" id="btnEntendido">¡A jugar! 🚀</button></div>
+    </div>
+  </div>
+
+  <!-- Modal ranking -->
+  <div class="modal fade" id="modalRanking" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content panel">
+        <div class="modal-header border-0"><h5 class="modal-title titulo-juego fs-6">🏆 RANKING 3AV</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body" id="rankingCuerpo">Cargando…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal insignias -->
+  <div class="modal fade" id="modalInsignias" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content panel">
+        <div class="modal-header border-0"><h5 class="modal-title titulo-juego fs-6">🎖️ INSIGNIAS Y AVATARES</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+          <div class="row g-2 mb-4" id="listaInsignias"></div>
+          <h6>Elige tu avatar <span class="small text-secondary">(se desbloquean con puntos)</span></h6>
+          <div class="d-flex flex-wrap gap-2" id="listaAvatares"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="js/niveles.js"></script>
+  <script src="js/juego.js"></script>
+</body>
+</html>
